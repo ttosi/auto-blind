@@ -21,8 +21,8 @@ const char *password = "makenna7122";
 
 const uint16_t WHEN_TO_OPEN_BRIGHTNESS = 75;
 const uint16_t WHEN_TO_CLOSE_BRIGHTNESS = 15;
-const uint16_t WHEN_TO_STOP_OPENING = 10; // lower number open further
-const uint16_t WHEN_TO_STOP_CLOSING = 340; // larger number close further
+const uint16_t WHEN_TO_STOP_OPENING = 10;  // lower number open further
+const uint16_t WHEN_TO_STOP_CLOSING = 330; // larger number close further
 
 int16_t currentBrightness = 0;
 boolean isDay;
@@ -60,58 +60,57 @@ void setup()
 
 void loop()
 {
-  ArduinoOTA.handle();
+  // ArduinoOTA.handle();
 
-  currentBrightness = analogRead(LDR_INPUT_PIN);
+  // currentBrightness = analogRead(LDR_INPUT_PIN);
 
-  if (!runStepper)
-  {
-    Serial.print("brightness: ");
-    Serial.println(currentBrightness);
-    Serial.print("position:   ");
-    Serial.println(analogRead(POSITION_INPUT_PIN));
-  }
+  // if (!runStepper)
+  // {
+  //   Serial.print("brightness: ");
+  //   Serial.println(currentBrightness);
+  //   Serial.print("position:   ");
+  //   Serial.println(analogRead(POSITION_INPUT_PIN));
+  // }
 
-  isDay = currentBrightness > WHEN_TO_OPEN_BRIGHTNESS;
-  isNight = currentBrightness < WHEN_TO_CLOSE_BRIGHTNESS;
+  // isDay = currentBrightness > WHEN_TO_OPEN_BRIGHTNESS;
+  // isNight = currentBrightness < WHEN_TO_CLOSE_BRIGHTNESS;
 
-  if (runStepper)
-  {
+  // if (runStepper)
+  // {
 
-    // open the blinds
-    if (isDay && !hasRunDay)
-    {
-      digitalWrite(LED_BUILTIN, HIGH);
+  //   // open the blinds
+  //   if (isDay && !hasRunDay)
+  //   {
+  //     digitalWrite(LED_BUILTIN, HIGH);
 
-      stepper.enable();
-      while (analogRead(POSITION_INPUT_PIN) > WHEN_TO_STOP_OPENING)
-      {
-        stepper.rotate(-100);
-      }
-      stepper.disable();
+  stepper.enable();
+  // while (analogRead(POSITION_INPUT_PIN) > WHEN_TO_STOP_OPENING)
+  // {
+  stepper.rotate(-10000);
+  // }
+  stepper.disable();
 
-      hasRunDay = true;
-      hasRunNight = false;
-    }
+  //     hasRunDay = true;
+  //     hasRunNight = false;
+  //   }
 
-    // close the blinds
-    if (isNight && !hasRunNight)
-    {
-      digitalWrite(LED_BUILTIN, HIGH);
+  //   // close the blinds
+  //   if (isNight && !hasRunNight)
+  //   {
+  //     digitalWrite(LED_BUILTIN, HIGH);
 
-      stepper.enable();
-      while (analogRead(POSITION_INPUT_PIN) < WHEN_TO_STOP_CLOSING)
-      {
-        stepper.rotate(100);
-      }
-      stepper.disable();
+  //     stepper.enable();
+  //     while (analogRead(POSITION_INPUT_PIN) < WHEN_TO_STOP_CLOSING)
+  //     {
+  //       stepper.rotate(100);
+  //     }
+  //     stepper.disable();
 
-      hasRunDay = false;
-      hasRunNight = true;
-    }
-  }
-  
-  delay(100);
+  //     hasRunDay = false;
+  //     hasRunNight = true;
+  //   }
+  // }
+  // delay(100);
 }
 
 void setupOta()
