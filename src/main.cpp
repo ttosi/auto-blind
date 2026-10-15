@@ -16,8 +16,8 @@ void setupOta();
 #define POSITION_INPUT_PIN 11
 #define LDR_INPUT_PIN 12
 
-const char *ssid = "raven";
-const char *password = "makenna7122";
+const char *ssid = "";
+const char *password = "";
 
 const uint16_t WHEN_TO_OPEN_BRIGHTNESS = 75;
 const uint16_t WHEN_TO_CLOSE_BRIGHTNESS = 15;
